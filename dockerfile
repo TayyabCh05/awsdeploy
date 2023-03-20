@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY services/web . 
 
 # Expose port and run application
-EXPOSE 5000CMD ["python", "manage.py", "run", "-h", "0.0.0.0", "-p", "8000"]
+EXPOSE 5000CMD ["python", "app.py", "run", "-h", "0.0.0.0", "-p", "8000"]
