@@ -1,0 +1,43 @@
+name: docker
+on:
+  pull_request:
+    branches:
+      - aws-deployment
+
+jobs:
+#First we will see the application build or not , then we will deploy in EC2
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python Environment
+      uses: actions/setup-python@v4
+      with:
+          python-version: '3.8'
+    - name: Build the docker_compose
+      run: docker-compose up -d --build
+    - name: Build the application
+      run: docker-compose exec -t testcases npm run build
+
+  Deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+            HOSTNAME : ${{ secrets.HOSTNAME }}
+            USER_NAME : ${{ secrets.USER_NAME }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+
+            cd /home/mehwish/DevOps/Projects/testcases &&
+            git checkout ${{ secrets.BRANCH_NAME }} &&
+            git fetch --all &&
+            git reset --hard origin/${{ secrets.BRANCH_NAME }} &&
+            git pull origin ${{ secrets.BRANCH_NAME }} &&
+            sudo docker compose up -d --build 
