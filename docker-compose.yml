@@ -2,7 +2,7 @@ version: '3'
 
 services:
   flask_app:
-    container_name: FlaskApp
+    container_name: Projects
     restart: always
     build: ./FlaskApp
     ports:
