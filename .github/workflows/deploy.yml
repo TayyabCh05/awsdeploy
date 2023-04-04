@@ -35,6 +35,7 @@ jobs:
           
             #Now we have got the access of EC2 and we will start the deploy .
 
+
             cd /home/ubuntu/testcases &&
             git checkout ${{ secrets.BRANCH_NAME }} &&
             git fetch --all &&
