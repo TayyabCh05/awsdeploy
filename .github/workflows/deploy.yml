@@ -17,7 +17,7 @@ jobs:
     - name: Build the docker_compose
       run: docker-compose up -d --build
     - name: Build the application
-      run: docker-compose exec -t testcases npm run build
+      run: docker-compose exec -t AWS Assignment npm run build
 
   Deploy:
     needs: build
@@ -34,6 +34,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
           
             #Now we have got the access of EC2 and we will start the deploy .
+
 
             cd /home/ubuntu/testcases &&
             git checkout ${{ secrets.BRANCH_NAME }} &&
