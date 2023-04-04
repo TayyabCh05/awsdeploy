@@ -17,7 +17,7 @@ jobs:
     - name: Build the docker_compose
       run: docker-compose up -d --build
     - name: Build the application
-      run: docker-compose exec -t testcases npm run build
+      run: docker-compose exec -t AWS Assignment npm run build
 
   Deploy:
     needs: build
