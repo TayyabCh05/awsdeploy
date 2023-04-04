@@ -1,4 +1,4 @@
-name: docker
+name: container
 on:
   push:
     branches:
@@ -29,5 +29,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: mehwish707/testcases:latest
+          tags: TayyabCh05/Testcase:latest
           
