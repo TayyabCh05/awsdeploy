@@ -37,7 +37,7 @@ jobs:
  
 
 
-            cd /home/ubuntu/AWS Assignment &&
+            cd /home/ubuntu/awsdeploy &&
             git checkout ${{ secrets.BRANCH_NAME }} &&
             git fetch --all &&
             git reset --hard origin/${{ secrets.BRANCH_NAME }} &&
